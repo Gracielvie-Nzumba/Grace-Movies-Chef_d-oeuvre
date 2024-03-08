@@ -1,5 +1,5 @@
 const express = require('express')
-
+const {Prisma}= require('prisma')
 const port = 3000;
 const app = express();
 
