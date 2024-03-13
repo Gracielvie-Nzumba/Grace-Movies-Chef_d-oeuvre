@@ -1,12 +1,16 @@
-const express = require('express')
-const {Prisma}= require('prisma')
-const port = 3000;
+const express = require('express');
+const {PrismaClient} = require('@prisma/client')
+const movieRoute = require('./movieRoute');
+const port = 8000;
 const app = express();
+const path = require('path');
 
-app.get('/', (req, res) => {
-    res.sendFile('../frontend/src/app.jsx')
+app.use('/', movieRoute)
+
+app.get('/movies', (req, res) => {
+    res.send(path.join(__dirname, '../frontend/src/app.jsx'));
 });
 
 app.listen(port, () => {
-    console.log('Serveur en ecoute sur le port 3000');
-  })
+    console.log('Serveur en ecoute sur le port 8000');
+  }) 
