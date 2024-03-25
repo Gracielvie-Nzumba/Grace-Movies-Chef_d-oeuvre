@@ -61,9 +61,9 @@ model Serie {
   telechargement         Telechargement[]
   user                   User             @relation(fields: [userId], references: [idUser])
   userId                 Int
-  Avis       Avis[]
-  Favoris    Favoris[]
-  Historique Historique[]
+  Avis                   Avis[]
+  Favoris                Favoris[]
+  Historique             Historique[]
 }
 
 model Telechargement {
@@ -110,8 +110,7 @@ model Historique {
   dateDeVisuaisation DateTime
 }
 
-  
-  // model Role{
-  //   visiteur  String
-  //   abonne   String
-  // }
+// model Role{
+//   visiteur  String
+//   abonne   String
+// }
