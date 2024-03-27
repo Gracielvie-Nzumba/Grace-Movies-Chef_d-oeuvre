@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 // import { BrowserRouter as Router } from 'react-router-dom';
 
-import React, { useState, use } from 'react';
+import React, { useState, } from 'react';
 // import BackgroundImage from '../BackgroundImage';
-// import FilmPage from '../FilmPage';
-
+//  import Home from './Home';
 
 
 function SignUp() {
