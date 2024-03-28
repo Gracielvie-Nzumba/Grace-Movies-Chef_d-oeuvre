@@ -41,7 +41,10 @@ const users = [
 //   .finally(async () => {
 //     await prisma.$disconnect();
 //   });
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5174',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+}));
 app.use(express.Router())
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -77,9 +80,9 @@ app.get('/:id', (req,res) => {
   );
 })
 
- app.post('/', (req, res) => {
+ app.post('/inscription', (req, res) => {
   
-  movies.push(req.body);
+  users.push(req.body);
   res.send('');
  })
 

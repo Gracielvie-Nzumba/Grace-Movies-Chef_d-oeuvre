@@ -21,8 +21,10 @@
     "nock": "^13.5.4",
     "nodemon": "^3.1.0"
   },
+  
   "devDependencies": {
     "concurrently": "^8.2.2",
     "prisma": "^5.10.2"
   }
+  
 }
