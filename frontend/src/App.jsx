@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 // import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
@@ -16,9 +15,12 @@ function App() {
     password: '',
   })
   const [isSignup, setIsSignup] = useState(false);
-  const history = useHistory();
 
+
+  
+  const [username,setUsername,] = useState(true);
   const handleChange = (e) => {
+    // setUsername(e.target.value);
     const { name, value } = e.target;
     setFormData({
      ...formData,
@@ -31,12 +33,12 @@ function App() {
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
-        const reponse = await axios.post('http://localhost:8000/login', formData);
+        const response = await axios.post('http://localhost:8000/login', formData);
         const token = response.data.token;
-        SpeechSynthesisErrorEvent('Login', token)
+        console.log('succès Login, token', token);
         history.push('/home');
     } catch (error) {
-      setError('Erreur de connexion:', error);
+      console.error('Erreur de connexion:', error);
     }
     
   };
@@ -64,21 +66,23 @@ function App() {
             <input
               type="text"
               placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={formData.username}
+              onChange={handleChange}
+              // onChange={(e) => setUsername(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:outline-none"
             />
             <input
               type="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
+              // onChange={(e) => setEmail(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:outline-none"
             />
             <input
               type="password"
               placeholder="Password"
-              value={password}
+              value={formData.password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-3 py-2 border rounded-md focus:outline-none"
             />
@@ -90,8 +94,8 @@ function App() {
             </button>
           </form>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/" element ={<Home />} />
+            <Route path="/SignUp" element={<SignUp/>} />
           </Routes>
           <button
             onClick={handleSignUp}

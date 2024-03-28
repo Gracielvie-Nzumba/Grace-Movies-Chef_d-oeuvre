@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 const { PrismaClient } = require('@prisma/client');
 const movieRoute = require('./movieRoute');
+const cors = require('cors')
 const port = 8000;
 const app = express();
 const path = require('path');
@@ -40,15 +41,30 @@ const users = [
 //   .finally(async () => {
 //     await prisma.$disconnect();
 //   });
+app.use(cors());
 app.use(express.Router())
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
+//Middleware pour gérer les en-têtes CORS
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5174');
+  res.setHeader('Access-Control-Allow-Methode', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization, content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+})
+
+app.get('/products/:id', cors(), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a Single Route'})
+})
+
 app.use('/', movieRoute);
 
 app.get('/movies', (req, res) => {
-  res.send(path.join(__dirname, '../frontend/src/app.jsx'));
+  res.sendFile(path.join(__dirname, '../frontend/src/app.jsx'));
 });
 
 app.get('/:id', (req,res) => {
@@ -79,46 +95,92 @@ app.delete ('/:id', (req, res) => {
   res.send("le poste dont l'ID vaut " + movies + 'a été supprimé avec succès')
 });
 
-// Authentification
+//Middleware pour l'Authentification
 
 const secretKey = 'Mot de passe';
 const movies = [
   { id: 1, username: 'Jean', email: 'gracevienzumba@gmail.com', password: '123456'},
 ]
 
+const privateKey = `-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQCMZnn6KSgSVYttjBab4cwFQKmi7p+cZQuo2KQmqxMKxIzgO9Pw
+8fmZ+y5+ZrksCQVYTc3JeIrP64SimkXrJY9QYF4PaxVZcQybfHs6yEopS2g5gFo6
+nm8fMxKAka/KwLYJgM5AaXQOEp7hxRolwHk5xlYAUOX7EaaeeWLcxAPbPQIDAQAB
+AoGACYXFzibOdffhXgu7WNVGvjB1kPx4TOY5lTkkYQ8HWpqcJ3VHWbc/w6bar24O
+LyNpfmTAiWKon5OMym6GQX2pq6JHHq9FRfMUD8Wa6E/m+i2pUBjzriZMPn00C7pd
+ccWdQrFT5/bWMqvG5HL+cLfhkhCwcZlCbPf7A68eOg3NNuECQQD3/oTaR/lQL1tC
++Sg8QBSwjMqVNsAg4ozIo+SjMBeoLGt9pQemRzll6tiLcESbSy6GYujA+J5r206X
+49KydQmZAkEAkO7G18JOFOJioHHkxY7Txrbu7pthfxTZSWaM0ZPKpd5RjYWkMBLi
+f5NeLmG7dgYFIUfo3x2rS8cRycXtGQeNRQJBAPB6p9t/lbxy3513PNQIE8gMDtpY
+6EA7T+e0Ph8coKQcxvNk16EfSgKRlADLEkxAwFHike+mZwER/gl+C6+vnGkCQCKF
+7jGY5DaPUoT7fE4e3o1YKAQIWSoHUlbsqaCGfuAR3AVFDz4wUWmoNegAecH8Xx51
+XaBAFfyf97nDft3Wca0CQQCZFTUJ9byl3dbPryYyQXez32A9yd8Oq0OuS43OBXSK
+S1AHVjoxodX5rIKFz6v4KiNLDVChV7lZTv+f7JRD/7JZ
+-----END RSA PRIVATE KEY-----`
+
+const publicKey = `-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCMZnn6KSgSVYttjBab4cwFQKmi
+7p+cZQuo2KQmqxMKxIzgO9Pw8fmZ+y5+ZrksCQVYTc3JeIrP64SimkXrJY9QYF4P
+axVZcQybfHs6yEopS2g5gFo6nm8fMxKAka/KwLYJgM5AaXQOEp7hxRolwHk5xlYA
+UOX7EaaeeWLcxAPbPQIDAQAB
+-----END PUBLIC KEY-----`
+
 function authMiddleware (req, res, next) {
-  const idToken = req.headers.authorization;
-  jwt.verify(idToken, secretKey, (error, decoded) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({message: 'Authentification nécessaire de token'})
+  }
+  jwt.verify(token, 'secret_Key', (error, decoded) => {
     if(error) {
-      res.status(402).send("pas correcte")
+      res.status(403).json({message: 'Token invalid'})
     }
-    else {
+    req.user = decoded;
       next();
-    }
+    
   })
 }
-
-app.post('/login',(req, res) => {
+  //Route de connexion
+app.post('/login',async (req, res) => {
   const {username, email, password} = req.body;
 
-  const validate = users.some((user) => user.username === username && user.email === email && user.password === password)
+  // Recherche de l'utilisateur dans la base de donées
 
-  const token = jwt.sign({username}, secretKey, {expiresIn: '1'});
+  const user = await prisma.user.findUnique({
+    where: {
+      username: username,
+      email: email,
+    },
+  })
+
+  // Vérifications pour l'existance de l'utilisateur et la validité du mot de passe
+  if(!user || !bcrypt.compareSync(user.password, password)){
+    return res.status(401).json({message: 'Invalid password'})
+  
+  }
+
+  //Création du token JWT
+  const token = jwt.sign({id: user.id, email: user.email, password: user.password}, 'secret_Key', {
+    expiresIn: '1h',
+  })
   res.json({token});
-
-  if(validate){
-    res.send(validate)
-  }
-  else{
-    res.status(403).send('invalide!')
-  }
 });
+
+// Route protégée nécessitant une authentification
 app.get('/protected', authMiddleware,(req,res) =>{
-  const {username}= req.body;
-  res.send(username)
+
+  // const {username}= req.body;
+  res.json({message: 'Accès autorisé, user: req.user'})
 });
 
      
 app.listen(port, () => {
   console.log('Serveur en écoute sur le port 8000');
 });
+
+
+// const validate = users.some((user) => user.username === username && user.email === email && user.password === password)
+  // const token = jwt.sign({username}, privateKey, {algorithm: 'RS256'});
+  // res.json({token});
+
+    // res.send(validate)
+    // res.status(403).send('invalide!')

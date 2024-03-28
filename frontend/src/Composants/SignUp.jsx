@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-// import { BrowserRouter as Router } from 'react-router-dom';
-
 import React, { useState, } from 'react';
+import axios from 'axios';
 // import BackgroundImage from '../BackgroundImage';
 //  import Home from './Home';
 
 
-function SignUp() {
+function SignUp(props) {
+  const {history} = props;
   const [formData, setFormData] = useState({
     nom: '',
     postnom: '',
@@ -25,8 +25,16 @@ function SignUp() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8000/inscription', formData);
+      console.log('Inscription reussie!', response.data)
+      history.push('/Home')
+    }
+    catch (error) {
+      console.error('Erreur lors de l\'inscription', error.message)
+    }
   };
 
   const handleModify = () => {};
