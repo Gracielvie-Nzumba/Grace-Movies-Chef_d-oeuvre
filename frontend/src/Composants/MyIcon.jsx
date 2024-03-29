@@ -1,7 +1,8 @@
-// export default function MyIcon ({icon}){
-//     return(
-//         <div>
-//             <img src={icon} alt="Icon" />
-//         </div>
-//     )
-// }
+export default function MyIcon(props) {
+    return (
+        <div className="flex gap-3.5 pt-4">
+          <img icon={props.icon} alt={props.styleName} />
+          {props.text}
+        </div>
+    );
+  }

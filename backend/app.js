@@ -45,15 +45,22 @@ app.use(cors({
   origin: 'http://localhost:5174',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 }));
-app.use(express.Router())
-app.use(express.json())
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+}));
+app.use(express.Router());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
+app.use(express.json());
+app.use('/', movieRoute);
+
 //Middleware pour gérer les en-têtes CORS
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5174');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
   res.setHeader('Access-Control-Allow-Methode', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, content-type');
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -68,6 +75,10 @@ app.use('/', movieRoute);
 
 app.get('/movies', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/src/app.jsx'));
+});
+
+app.get('/', (req, res) => {
+  res.send('Welcome to my server!');
 });
 
 app.get('/:id', (req,res) => {
