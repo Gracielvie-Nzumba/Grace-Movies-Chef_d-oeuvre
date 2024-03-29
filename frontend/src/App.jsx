@@ -3,56 +3,54 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 // import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
-// import SignUp from './Composants/SignUp';
 import Home from './Composants/Home';
-
+// import Shorts from './Shorts';
+// import SignUp from './Composants/SignUp';
 // import MyIcon from './Composants/MyIcon';
-
 function App() {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-  })
+  }); 
   const [isSignup, setIsSignup] = useState(false);
 
-
   const [password, setPassword] = useState(false);
-  const [username,setUsername,] = useState(true);
+  const [username, setUsername] = useState(true);
   const handleChange = (e) => {
     // setUsername(e.target.value);
     const { name, value } = e.target;
     setFormData({
       ...formData,
-    [name]: value,
-    })
+      [name]: value,
+    });
   };
 
-
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await axios.post('http://localhost:8000/login', formData);
-        const token = response.data.token;
-        console.log('succès Login, token', token);
-        history.push('/Home');
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/login',
+        formData
+      );
+      const token = response.data.token;
+      console.log('succès Login, token', token);
+      history.push('/Home');
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }
-    
   };
 
-  const handleSignUp = () => {
-  };
+  const handleSignUp = () => {};
 
   if (isSignup) {
     return <SignUp />;
   }
 
   return (
-    <div>
-<Home />
-</div>
+    // <div>
+    //   <Shorts />
+    // </div>
     // <Router>
     //   <div className="flex items-center h-screen justify-center bg-gradient-to-b from-blue-600 to-gray-700">
     //     <div className="bg-white w-96 py-8 px-10 rounded-xl shadow-lg w-100% text-center">
@@ -92,28 +90,28 @@ function App() {
     //         />
     //         <button
     //           onClick={handleLogin}
-    //           className="bg-gray-600 font-bold text-white rounded-md py-1 px-4 hover:bg-gray-800 w-1/2 ml-20"
+    //           className="bg-gray-600 font-bold text-white rounded-md py-1  hover:bg-gray-800 w-1/2 m-20 mr-3"
     //         >
     //           Login
     //         </button>
     //       </form>
     //       <Routes>
-    //         <Route path="/" element ={<Home />} />
+    //         {/* <Route path="/" element ={<Home />} /> */}
     //         <Route path="/SignUp" element={<SignUp/>} />
     //       </Routes>
     //       <button
     //         onClick={handleSignUp}
-    //         className="bg-gray-600 font-bold text-white rounded-md py-1 px-4 hover:bg-gray-800 w-1/2 ml-2 mb-3"
+    //         className="bg-gray-600 font-bold text-white rounded-md py-1 px-4 hover:bg-gray-800 w-1/2 m-3 ml-5"
     //       >
     //         Sign Up
     //       </button>
     //     </div>
     //   </div>
     // </Router>
+        <div>
+    <Home />
+    </div>
   );
 }
 
-
 export default App;
-
-

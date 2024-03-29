@@ -40,22 +40,25 @@ function Home() {
         </div>
         <div className=" text-white text-2xl font-bold ml-20 m-10">
           <div className="mt-10 border-b">
-            <MyIcon icon="" text="Home" />
+            <MyIcon icon="/MesIcons/icons8-home.svg" text="Home" />
           </div>
           <div className="mt-10 border-b">
-            <MyIcon icon="" text="Films" />
+            <MyIcon icon="/MesIcons/icons8-connect-64 1.svg" text="Films" />
           </div>
           <div className="mt-10 border-b">
-            <MyIcon icon="" text="Séries" />
+            <MyIcon icon="/src/MesIcons/icons8-tv-show-50.png" text="Séries" />
           </div>
           <div className="mt-10 border-b">
-            <MyIcon icon="" text="Animés" />
+            <MyIcon icon="/MesIcons/icons8-my-melody-50 1.svg" text="Animés" />
           </div>
           <div className="mt-10 border-b">
-            <MyIcon icon="" text="Shorts" />
+            <MyIcon icon="/MesIcons/icons8-time-card-50.png" text="Shorts" />
           </div>
           <div className="mt-10 border-b">
-            <MyIcon icon="" text="Abonnement" />
+            <MyIcon 
+              icon="/MesIcons/icons8-subscription-48.png"
+              text="Abonnement"
+            />
           </div>
         </div>
       </div>
@@ -71,63 +74,88 @@ function Home() {
         </div>
         <div className="flex justify-between text-white font-serif m-10  font-bold">
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
-            <h2>War Room un film a voir en fammille.</h2>
-            <p>Grace TV</p>
-            <small>30 vues. y a 3 jrs</small>
+            <div>
+              <img src="/MesImages/waroomfilm 1.svg" />
+              <h2 className="">War Room un film a voir en fammille.</h2>
+            </div>
+            <div className="text-center">
+              <p>Grace TV</p>
+              <small>30 vues. y a 3 jrs</small>
+            </div>
           </div>
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
-            <h2>War Room un film a voir en fammille.</h2>
-            <p>Grace TV</p>
-            <small>30 vues. y a 3 jrs</small>
+            <div>
+              <img src="/MesImages/fiançaille et vie chretienne 1.svg" />
+              <h2 className="text-center">Fiançaille et vie chretienne.</h2>
+            </div>
+            <div className="text-center">
+              <p>Mc TV</p>
+              <small>11 k vues. y a 1 sem</small>
+            </div>
           </div>
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
-            <h2>War Room un film a voir en fammille.</h2>
-            <p>Grace TV</p>
-            <small>30 vues. y a 3 jrs</small>
+            <div>
+              <img src="/MesImages/image 2.svg" />
+              <h2 className="text-center">Film chretien à voir absolument</h2>
+            </div>
+            <div className="text-center">
+              <p>GloDi-Tivi</p>
+              <small>20vues. y a 2 jrs</small>
+            </div>
           </div>
-          </div>
+        </div>
         <div className="flex justify-between text-white font-serif m-10  font-bold">
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
-            <h2>War Room un film a voir en fammille.</h2>
-            <p>Grace TV</p>
-            <small>30 vues. y a 3 jrs</small>
+            <div>
+              <img src="/MesImages/dessin-anime naissance de JC 1.svg" />
+              <h2 className='text-center'>Déssin animé: 
+              l’enfant Jésus</h2>
+            </div>
+            <div className='text-center'>
+              <p>Sephora’K</p>
+              <small>1 k vues. y a 20 jrs.</small>
+            </div>
           </div>
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
-            <h2>War Room un film a voir en fammille.</h2>
-            <p>Grace TV</p>
-            <small>30 vues. y a 3 jrs</small>
+            <div>
+              <img src="/MesImages/film_enfants 1.svg" />
+              <h2 className="text-center">Série chretienne enfants.</h2>
+            </div>
+            <div className="text-center">
+              <p>Emili TV</p>
+              <small>17 vues. y a 2 sem</small>
+            </div>
           </div>
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
-            <h2>War Room un film a voir en fammille.</h2>
-            <p>Grace TV</p>
-            <small>30 vues. y a 3 jrs</small>
+            <div>
+              <img src="/MesImages/image 1.svg" />
+              <h2 className="text-center">Joseph le roi-des-revês.</h2>
+            </div>
+            <div className="text-center">
+              <p>TV-Movies</p>
+              <small>2 k vues. y a 6mois</small>
+            </div>
           </div>
-          </div>
+        </div>
         <div className="flex justify-between text-white font-serif m-10 font-bold">
-          <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
+          {/* <div>
+            <img src="" />
             <h2>War Room un film a voir en fammille.</h2>
             <p>Grace TV</p>
             <small>30 vues. y a 3 jrs</small>
           </div>
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
+            <img src="" />
             <h2>War Room un film a voir en fammille.</h2>
             <p>Grace TV</p>
             <small>30 vues. y a 3 jrs</small>
           </div>
           <div>
-            <img src="frontend/src/Images/waroomfilm 1.png" />
+            <img src="" />
             <h2>War Room un film a voir en fammille.</h2>
             <p>Grace TV</p>
             <small>30 vues. y a 3 jrs</small>
-          </div>
+          </div> */}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredMovies.map((movie) => (

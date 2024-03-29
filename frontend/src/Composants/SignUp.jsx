@@ -2,7 +2,7 @@
 // import React, { useState, } from 'react';
 // import axios from 'axios';
 // // import BackgroundImage from '../BackgroundImage';
-// //  import Home from './Home';
+
 
 
 // function SignUp(props) {
