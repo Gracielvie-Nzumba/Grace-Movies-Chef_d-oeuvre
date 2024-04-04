@@ -14,101 +14,101 @@ datasource db {
 }
 
 model User {
-  idUser          Int              @id @default(autoincrement())
+  idUser          Int      @id @default(autoincrement())
   name            String
   postname        String
-  email           String           @unique
+  email           String   @unique
   password        String
   dateDeNaissance DateTime
   sexe            String
   pays            String
-  avis            Avis[]
-  film            Film[]
-  serie           Serie[]
-  telechargement  Telechargement[]
-  favoris         Favoris[]
-  historique      Historique[]
+  // avis            Avis[]
+  // film            Film[]
+  // serie           Serie[]
+  // telechargement  Telechargement[]
+  // favoris         Favoris[]
+  // historique      Historique[]
 }
 
-model Film {
-  idFilm                 Int              @id @default(autoincrement())
-  titre                  String
-  realisateur            String
-  anneeDeSortie          Int
-  description            String
-  acteur                 String
-  dureeMoyenneParEpisode Float
-  urlDeStreaming         String
-  urlDeTelechargement    String
-  telechargement         Telechargement[]
-  user                   User             @relation(fields: [userId], references: [idUser])
-  userId                 Int
-  Avis                   Avis[]
-  Favoris                Favoris[]
-  Historique             Historique[]
-}
+// model Film {
+//   idFilm                 Int              @id @default(autoincrement())
+//   titre                  String
+//   realisateur            String
+//   anneeDeSortie          Int
+//   description            String
+//   acteur                 String
+//   dureeMoyenneParEpisode Float
+//   urlDeStreaming         String
+//   urlDeTelechargement    String
+//   telechargement         Telechargement[]
+//   user                   User             @relation(fields: [userId], references: [idUser])
+//   userId                 Int
+//   Avis                   Avis[]
+//   Favoris                Favoris[]
+//   Historique             Historique[]
+// }
 
-model Serie {
-  idSerie                Int              @id @default(autoincrement())
-  titre                  String
-  realisateur            String
-  anneeDeSortie          Int
-  description            String
-  acteur                 String
-  dureeMoyenneParEpisode Float
-  urlDeStreaming         String
-  urlDeTelechargement    String
-  telechargement         Telechargement[]
-  user                   User             @relation(fields: [userId], references: [idUser])
-  userId                 Int
-  Avis                   Avis[]
-  Favoris                Favoris[]
-  Historique             Historique[]
-}
+// model Serie {
+//   idSerie                Int              @id @default(autoincrement())
+//   titre                  String
+//   realisateur            String
+//   anneeDeSortie          Int
+//   description            String
+//   acteur                 String
+//   dureeMoyenneParEpisode Float
+//   urlDeStreaming         String
+//   urlDeTelechargement    String
+//   telechargement         Telechargement[]
+//   user                   User             @relation(fields: [userId], references: [idUser])
+//   userId                 Int
+//   Avis                   Avis[]
+//   Favoris                Favoris[]
+//   Historique             Historique[]
+// }
 
-model Telechargement {
-  id           Int      @id @default(autoincrement())
-  date         DateTime
-  film         Film     @relation(fields: [filmId], references: [idFilm])
-  filmId       Int
-  serie        Serie    @relation(fields: [serieId], references: [idSerie])
-  serieId      Int
-  qualiteVideo String
-  User         User?    @relation(fields: [userIdUser], references: [idUser])
-  userIdUser   Int?
-}
+// model Telechargement {
+//   id           Int      @id @default(autoincrement())
+//   date         DateTime
+//   film         Film     @relation(fields: [filmId], references: [idFilm])
+//   filmId       Int
+//   serie        Serie    @relation(fields: [serieId], references: [idSerie])
+//   serieId      Int
+//   qualiteVideo String
+//   User         User?    @relation(fields: [userIdUser], references: [idUser])
+//   userIdUser   Int?
+// }
 
-model Avis {
-  idAvis  Int     @id @default(autoincrement())
-  user    User    @relation(fields: [userId], references: [idUser])
-  userId  Int
-  film    Film    @relation(fields: [filmId], references: [idFilm])
-  filmId  Int
-  serie   Serie   @relation(fields: [serieId], references: [idSerie])
-  serieId Int
-  comment String?
-}
+// model Avis {
+//   idAvis  Int     @id @default(autoincrement())
+//   user    User    @relation(fields: [userId], references: [idUser])
+//   userId  Int
+//   film    Film    @relation(fields: [filmId], references: [idFilm])
+//   filmId  Int
+//   serie   Serie   @relation(fields: [serieId], references: [idSerie])
+//   serieId Int
+//   comment String?
+// }
 
-model Favoris {
-  idFavoris BigInt @id @default(autoincrement())
-  user      User   @relation(fields: [userId], references: [idUser])
-  userId    Int
-  film      Film   @relation(fields: [filmId], references: [idFilm])
-  filmId    Int
-  serie     Serie  @relation(fields: [serieId], references: [idSerie])
-  serieId   Int
-}
+// model Favoris {
+//   idFavoris BigInt @id @default(autoincrement())
+//   user      User   @relation(fields: [userId], references: [idUser])
+//   userId    Int
+//   film      Film   @relation(fields: [filmId], references: [idFilm])
+//   filmId    Int
+//   serie     Serie  @relation(fields: [serieId], references: [idSerie])
+//   serieId   Int
+// }
 
-model Historique {
-  idHistorique       BigInt   @id @default(autoincrement())
-  user               User     @relation(fields: [userId], references: [idUser])
-  userId             Int
-  film               Film     @relation(fields: [filmId], references: [idFilm])
-  filmId             Int
-  serie              Serie    @relation(fields: [serieId], references: [idSerie])
-  serieId            Int
-  dateDeVisuaisation DateTime
-}
+// model Historique {
+//   idHistorique       BigInt   @id @default(autoincrement())
+//   user               User     @relation(fields: [userId], references: [idUser])
+//   userId             Int
+//   film               Film     @relation(fields: [filmId], references: [idFilm])
+//   filmId             Int
+//   serie              Serie    @relation(fields: [serieId], references: [idSerie])
+//   serieId            Int
+//   dateDeVisuaisation DateTime
+// }
 
 // model Role{
 //   visiteur  String

@@ -21,9 +21,7 @@
     "nock": "^13.5.4",
     "nodemon": "^3.1.0"
   },
-  "prisma": {
-    "schema": "./path/to/schema.prisma"
-  },
+ 
   
   "devDependencies": {
     "concurrently": "^8.2.2",

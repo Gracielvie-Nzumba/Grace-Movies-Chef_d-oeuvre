@@ -51,12 +51,19 @@ const deleteMovie = async (req, res) => {
     }
 }
 
-// const hashedPassword = bcrypt.hashSync('MotDePasse', 10);
+const hashedPassword = bcrypt.hashSync('MotDePasse', 10);
 
-// const registrerUser = (req, res) => {
-//   const { name, email, password } = req.body;
-//   res.status(200).json({ message: 'Inscription reussie' });
-// };
+const login = (req, res) => {
+  const { name, email, password } = req.body;
+  res.status(200).json({ message: 'accsès reussie' });
+
+};
+
+const inscription = (req, res) => {
+    const { name, postname, email, password,dateDeNaissance, sex, pays } = req.body;
+    res.status(202).json({ message: 'accsès reussie' });
+  
+  };
 
 // const createMovies = (req, res) => {
 //   res.json({ message: 'Utilisateur crée avec succès' });
@@ -65,5 +72,8 @@ const deleteMovie = async (req, res) => {
 module.exports = {
   getAllMovies,
   createMovies,
-  deleteMovie
+  deleteMovie,
+  login,
+  inscription
+
 };
