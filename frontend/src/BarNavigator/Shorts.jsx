@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // import MyIcon from './Composants/MyIcon';
-import Image from '../PageConnexion/Image';
+import Image from '../PageConnexion/MyImage';
 import { Routes, Route } from 'react-router-dom';
 
 

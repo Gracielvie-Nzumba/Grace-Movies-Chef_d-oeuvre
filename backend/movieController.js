@@ -1,4 +1,3 @@
-// const { hashSync } = require("bcrypt");
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
@@ -51,29 +50,14 @@ const deleteMovie = async (req, res) => {
     }
 }
 
-const hashedPassword = bcrypt.hashSync('MotDePasse', 10);
-
-const login = (req, res) => {
-  const { name, email, password } = req.body;
-  res.status(200).json({ message: 'accsès reussie' });
-
-};
-
 const inscription = (req, res) => {
-    const { name, postname, email, password,dateDeNaissance, sex, pays } = req.body;
-    res.status(202).json({ message: 'accsès reussie' });
-  
-  };
-
-// const createMovies = (req, res) => {
-//   res.json({ message: 'Utilisateur crée avec succès' });
-// };
+  const { name, postname, email, password,dateDeNaissance, sex, pays } = req.body;
+  res.status(202).json({ message: 'accès réussi' }); // Correction effectuée ici
+};
 
 module.exports = {
   getAllMovies,
   createMovies,
   deleteMovie,
-  login,
   inscription
-
 };

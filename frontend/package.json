@@ -18,6 +18,8 @@
     "enzyme-adapter-react-16": "^1.15.8",
     "enzyme-to-json": "^3.6.2",
     "jest": "^29.7.0",
+    "jwt-decode": "^4.0.0",
+    "lazyload": "^2.0.0-rc.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",

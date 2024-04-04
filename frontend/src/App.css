@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'VotrePolice';
+    src: url('chemin-vers-votre-police-principale.woff') format('woff'),
+         url('chemin-vers-votre-police-de-secours.woff') format('woff');
+  }
+  

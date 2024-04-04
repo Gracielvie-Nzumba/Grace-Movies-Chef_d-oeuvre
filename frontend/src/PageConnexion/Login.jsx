@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from '../BarNavigator/Home';
 import SignUp from './SignUp';
-
+// import * as jwt_decode from 'jwt-decode';
 function Login() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -11,7 +11,7 @@ function Login() {
     email: '',
     password: '',
   });
-  const [isSignup, setIsSignup] = useState('');
+  const [isSignup, setIsSignup] = useState('false');
   const navigate = useNavigate(); // Importez useNavigate
 
   const handleChange = (e) => {
@@ -22,10 +22,27 @@ function Login() {
     });
   };
 
-  const handleLogin = () => {
-    // Implémentez la logique de connexion ici
-    // Une fois la connexion réussie, redirigez vers la route "/home"
-    navigate('/home'); // Redirection vers la route "/home"
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Email ou mot de passe incorrect');
+      }
+  
+      const data = await response.json();
+      localStorage.setItem('token', data.token); 
+      navigate('/home');
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+      
+    }
   };
 
   const handleSignUp = () => {

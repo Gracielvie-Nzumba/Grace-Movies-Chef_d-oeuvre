@@ -4,17 +4,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import Home from './BarNavigator/Home';
+// import Shorts from './Shorts';
 import SignUp from './PageConnexion/SignUp';
 import MyIcon from './PageConnexion/MyIcon';
 import Login from './PageConnexion/Login';
-import Image from './PageConnexion/Image';
-import Films from './BarNavigator/Films';
-import NavBar from './BarNavigator/NavBar';
-import Serie from './BarNavigator/Serie';
-import Animes from './BarNavigator/Animes';
-import Shorts from './BarNavigator/Shorts';
-import Abonnement from './BarNavigator/Abonnement';
-
+import Image from './PageConnexion/MyImage';
 function App() {
   const navigate = useNavigate(); // Utilisation de useNavigate pour la navigation
 
@@ -37,17 +31,14 @@ function App() {
         <Login />
       </div> */}
       <div>
-        <NavBar />{' '}
-        {/* Utilisez le composant NavBar ici s'il n'est pas déjà utilisé */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/films" element={<Films />} />
-          <Route path="/series" element={<Series />} />
-          <Route path="/anime" element={<Animes />} />
-          <Route path="/short" element={<Shorts />} />
-          <Route path="/abonnement" element={<Abonnement />} />
-        </Routes>
+        <Link to="/" src="/src/MesIcons/icons8-home 1.svg" text="Home" />
+        <Link to="/series" src="" text="Series" />
+        <Link to="/films" src="" text="Films" />
+        <Link to="/anime" src="" text="Anime" />
+        <Link to="/short" src="" text="Short" />
+        <Link to="/abonnement" src="" text="Abonnement" />
       </div>
+      
 
       <Routes>
         {/* Route vers la page d'accueil */}
