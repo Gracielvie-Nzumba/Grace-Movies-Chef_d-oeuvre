@@ -51,7 +51,7 @@ const deleteMovie = async (req, res) => {
 }
 
 const inscription = (req, res) => {
-  const { name, postname, email, password,dateDeNaissance, sex, pays } = req.body;
+  const { name, postnom, email, password,dateDeNaissance, sex, pays } = req.body;
   res.status(202).json({ message: 'accès réussi' }); // Correction effectuée ici
 };
 

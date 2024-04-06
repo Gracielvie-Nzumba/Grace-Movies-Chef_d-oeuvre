@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-// import BackgroundImage from '../BackgroundImage';
 
 function SignUp({ onSignUp }) {
   const [formData, setFormData] = useState({
@@ -23,6 +22,7 @@ function SignUp({ onSignUp }) {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault()
     if (typeof onSignUp === 'function') {
       onSignUp(formData);
     } else {
@@ -33,10 +33,9 @@ function SignUp({ onSignUp }) {
 
 
 
-  // const handleModify = () => {};
 
   return (
-    <div className="flex items-center justify-center bg-cover bg-center bg-no-repeat bg-gradient-to-b from-teal-700 to-cyan-900 h-screen">
+    <div className="flex items-center justify-center bg-cover bg-center bg-no-repeat bg-gradient-to-r from-teal-500 via-indigo-500 to-cyan-900 h-screen">
       <div className="bg-white w-96 py-8 px-10 rounded-xl shadow-lg text-center relative">
         <h1 className="text-2xl font-bold mb-4 text-gray-800">Inscription</h1>
         <form className="flex flex-col space-y-4 z-10" onSubmit={handleSubmit}>
@@ -105,7 +104,6 @@ function SignUp({ onSignUp }) {
           </button>
         </form>
         <Link to="/home" className="text-blue-600 hover:underline mt-2 block">
-          {/* Déjà inscrit ? Connectez-vous ici */}
         </Link>
       </div>
     </div>

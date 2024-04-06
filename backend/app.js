@@ -9,6 +9,7 @@ const port = 8000;
 const app = express();
 const path = require('path');
 const { error } = require('console');
+const module = await import('./path/to/module.js');
 
 const prisma = new PrismaClient();
 
@@ -109,6 +110,27 @@ function authMiddleware(req, res, next) {
     next();
   });
 }
+
+
+function loadScript(url) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.body.appendChild(script);
+  });
+}
+
+// Utilisation de la fonction de chargement différé
+loadScript('path/to/script.js')
+  .then(() => {
+    // Script chargé avec succès
+  })
+  .catch((error) => {
+    // Erreur lors du chargement du script
+    console.error('Error loading script:', error);
+  });
 
 // Route de connexion
 app.post('/login', async (req, res) => {

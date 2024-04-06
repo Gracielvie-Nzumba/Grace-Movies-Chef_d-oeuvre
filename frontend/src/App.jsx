@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  BrowserRouter,
+  RouterProvider,
+} from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import Home from './BarNavigator/Home';
@@ -8,9 +12,31 @@ import Home from './BarNavigator/Home';
 import SignUp from './PageConnexion/SignUp';
 import MyIcon from './PageConnexion/MyIcon';
 import Login from './PageConnexion/Login';
-import Image from './PageConnexion/MyImage';
+import MyImage from './PageConnexion/MyImage';
+import Apropos from './PageConnexion/Apropos';
+// import NavBar from './BarNavigator/NavBar';
+
+
+
+
+      // <div>
+      //   Login
+      //   <nav>
+      //     <ul>
+      //       <li>
+      //         <Link to="/home">Home</Link>
+      //       </li>
+      //       <li>
+      //         <Link to="/signup">Sign Up</Link>
+      //       </li>
+      //     </ul>
+      //   </nav>
+      // </div>
+    
+
+
 function App() {
-  const navigate = useNavigate(); // Utilisation de useNavigate pour la navigation
+  const navigate = useNavigate();
 
   const handleSignUp = async (formData) => {
     try {
@@ -19,43 +45,35 @@ function App() {
         formData
       );
       console.log('Inscription réussie!', response.data);
-      navigate('/home'); // Naviguer vers la page d'accueil après inscription réussie
+      navigate('/home');
     } catch (error) {
       console.error("Erreur lors de l'inscription", error.message);
     }
   };
 
+
+
   return (
-    <>
-      {/* <div>
-        <Login />
-      </div> */}
-      <div>
-        <Link to="/" src="/src/MesIcons/icons8-home 1.svg" text="Home" />
-        <Link to="/series" src="" text="Series" />
-        <Link to="/films" src="" text="Films" />
-        <Link to="/anime" src="" text="Anime" />
-        <Link to="/short" src="" text="Short" />
-        <Link to="/abonnement" src="" text="Abonnement" />
-      </div>
-      
-
+    <div className='App'>
+     {/* < NavBar/> */}
       <Routes>
-        {/* Route vers la page d'accueil */}
-        <Route path="/*" element={<Login />} />
-
-        {/* Route vers le formulaire d'inscription */}
-        <Route path="/signup" element={<SignUp onSignUp={handleSignUp} />} />
-
-        {/* Route vers la page d'accueil */}
-        <Route path="/home" element={<Home />} />
+        <Route path='/' element={<Home/>}/>
+        <Route path='/login' element={<Login/>}/>
+        {/* <Route path='/home' element={<Home/>}/> */}
       </Routes>
-    </>
-  );
-}
+    </div>
+   );
+
+
+      
+    
+
+  }
 
 export default App;
-
+{
+  /* <p className="m-3 border-b-2">Shorts</p> */
+}
 {
   /* <Routes> */
 }
