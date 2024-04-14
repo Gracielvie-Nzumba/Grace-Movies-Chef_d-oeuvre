@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Router, Routes, Route, Link, Outlet, useNavigate, Navigate } from 'react-router-dom';
 import {
   createBrowserRouter,
   BrowserRouter,
@@ -8,14 +8,16 @@ import {
 import axios from 'axios';
 import './App.css';
 import Home from './BarNavigator/Home';
-// import Shorts from './Shorts';
 import SignUp from './PageConnexion/SignUp';
 import MyIcon from './PageConnexion/MyIcon';
 import Login from './PageConnexion/Login';
 import MyImage from './PageConnexion/MyImage';
 import Apropos from './PageConnexion/Apropos';
-// import NavBar from './BarNavigator/NavBar';
-
+import NavBar from './BarNavigator/NavBar';
+import Films from './BarNavigator/Films';
+import Serie from './BarNavigator/Serie';
+import Shorts from './BarNavigator/Shorts';
+import Animes from './BarNavigator/Animes';
 
 
 
@@ -36,30 +38,25 @@ import Apropos from './PageConnexion/Apropos';
 
 
 function App() {
+  const isLoggedIn = localStorage.getItem('token') !== null;
   const navigate = useNavigate();
 
-  const handleSignUp = async (formData) => {
-    try {
-      const response = await axios.post(
-        'http://localhost:8000/inscription',
-        formData
-      );
-      console.log('Inscription réussie!', response.data);
-      navigate('/home');
-    } catch (error) {
-      console.error("Erreur lors de l'inscription", error.message);
-    }
-  };
+ 
 
 
 
   return (
     <div className='App'>
-     {/* < NavBar/> */}
+     < NavBar/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Login/>}/>
-        {/* <Route path='/home' element={<Home/>}/> */}
+        <Route path='/' element={<Navigate to="/login" />} />
+        <Route path='/login'  element={isLoggedIn ? <Navigate to="/home" /> : <Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/home" element={isLoggedIn ? <Home /> : <Navigate to="/login" />} />
+        {/* <Route path='/film' element={<Films/>}/> */}
+        {/* <Route path='/serie' element={<Serie/>}/> */}
+        {/* <Route path='/anime' element={<Animes/>}/> */}
+        <Route path='/short' element={<Shorts/>}/>
       </Routes>
     </div>
    );
@@ -71,15 +68,3 @@ function App() {
   }
 
 export default App;
-{
-  /* <p className="m-3 border-b-2">Shorts</p> */
-}
-{
-  /* <Routes> */
-}
-// <Route path="/" element={<Home />} />
-{
-  /* <Route path="/home" element={<Home />} />  */
-}
-// <Route path="/signup" element={<SignUp />} />
-// </Routes>

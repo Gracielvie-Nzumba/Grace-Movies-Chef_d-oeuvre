@@ -5,18 +5,13 @@ const bodyParser = require('body-parser');
 const { PrismaClient } = require('@prisma/client');
 const movieRoute = require('./movieRoute');
 const cors = require('cors');
-const port = 8000;
-const app = express();
 const path = require('path');
-const { error } = require('console');
-const module = await import('./path/to/module.js');
 
 const prisma = new PrismaClient();
+const JWT_SECRET = process.env.JWT_SECRET || 'MotDePasseSecurise'; // Définir le secret JWT
 
-async function main() {
-  const users = await prisma.user.findMany();
-  console.log(users);
-}
+const app = express();
+const port = 8000;
 
 const users = [
   {
@@ -43,8 +38,7 @@ app.use(
   })
 );
 
-// cache des ressources statisques 
-
+// Cache des ressources statiques 
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Body parser middleware
@@ -78,14 +72,14 @@ app.get('/:id', (req, res) => {
 app.put('/update/:id', (req, res) => {
   const movieId = req.params.id;
   movies.splice(movieId - 1, 1, req.body);
-  res.send("le poste dont l'Id vaut " + movies + 'a été modifié avec succès');
+  res.send("Le poste dont l'Id vaut " + movies + ' a été modifié avec succès');
 });
 
 // Route pour supprimer un film par ID
 app.delete('/:id', (req, res) => {
   const movieId = req.params.id;
   movies.splice(movieId - 1, 1);
-  res.send("le poste dont l'ID vaut " + movies + 'a été supprimé avec succès');
+  res.send("Le poste dont l'ID vaut " + movies + ' a été supprimé avec succès');
 });
 
 // Configuration des en-têtes de cache pour les ressources statiques (par exemple, 1 semaine)
@@ -111,7 +105,7 @@ function authMiddleware(req, res, next) {
   });
 }
 
-
+// Fonction pour charger un script
 function loadScript(url) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
@@ -123,14 +117,14 @@ function loadScript(url) {
 }
 
 // Utilisation de la fonction de chargement différé
-loadScript('path/to/script.js')
-  .then(() => {
-    // Script chargé avec succès
-  })
-  .catch((error) => {
-    // Erreur lors du chargement du script
-    console.error('Error loading script:', error);
-  });
+// loadScript('path/to/script.js')
+//   .then(() => {
+//     // Script chargé avec succès
+//   })
+//   .catch((error) => {
+//     // Erreur lors du chargement du script
+//     console.error('Error loading script:', error);
+//   });
 
 // Route de connexion
 app.post('/login', async (req, res) => {
@@ -148,7 +142,7 @@ app.post('/login', async (req, res) => {
     }
 
     // Création du token JWT
-    const token = jwt.sign({ userId: user.id }, 'clé_secrète', {
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: '1h',
     });
 
@@ -158,9 +152,6 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
-
-// Utilisation d'une constante pour le secret JWT
-const JWT_SECRET = process.env.JWT_SECRET || 'MotDePasseSecurise';
 
 // Route pour l'inscription d'utilisateurs
 app.post('/inscription', async (req, res) => {

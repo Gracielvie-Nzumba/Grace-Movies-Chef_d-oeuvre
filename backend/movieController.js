@@ -14,8 +14,14 @@ const getAllMovies = async (req, res) => {
 
 const createMovies = async (req, res) => {
     try {
-        const { titre, realisateur, anneeDeSortie, description, acteur, dureeMoyenneParEpisode, urlDeStreaming, urlDeTelechargement, userId} = req.body;
-        const newMovies = await prisma.film.create({
+      const token = req.headers.authorization;
+      if (!token) {
+        return res.status(401).json({ message: 'Authorization header missing' });
+      }
+      const decodedToken = jwt.verify(token.split(' ')[1], JWT_SECRET);
+  
+      const { titre, realisateur, anneeDeSortie, description, acteur, dureeMoyenneParEpisode, urlDeStreaming, urlDeTelechargement, userId} = req.body;
+      const newMovie = await prisma.film.create({
             data: {
                 titre,
                 realisateur,
@@ -28,12 +34,13 @@ const createMovies = async (req, res) => {
                 userId
             }
         })
-        res.json(newMovies);
-    } catch (error) {
-        console.error('Error creating movies', error);
+        res.status(201).json(newMovie);
+      } catch (error) {
+        console.error('Erreur lors de la création du film:', error);
         res.status(500).json({ message: 'Erreur serveur' });
-    }
-}
+      }
+    };
+
 
 const deleteMovie = async (req, res) => {
     try {

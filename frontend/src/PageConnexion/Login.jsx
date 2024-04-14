@@ -5,6 +5,7 @@ import SignUp from './SignUp';
 // import NavBar from '../BarNavigator/NavBar';
 // import * as jwt_decode from 'jwt-decode';
 function Login() {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [formData, setFormData] = useState({
@@ -30,11 +31,12 @@ function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email, password }),
       });
 
       if (!response.ok) {
-        throw new Error('Email ou mot de passe incorrect');
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.message);
       }
 
       const data = await response.json();
@@ -42,6 +44,7 @@ function Login() {
       navigate('/home');
     } catch (error) {
       console.error('Erreur de connexion:', error);
+      alert(error.message);
     }
   };
 
@@ -90,12 +93,15 @@ function Login() {
           />
           <div>
             <Link
-              to="/*"
+              to="/"
               className="bg-gray-600 rounded-md font-bold text-white py-2 px-14 ml-2 hover:bg-gray-800 "
             >
               Login
             </Link>
           </div>
+          {/* <Routes>
+            <Route path ="/home" element={<Home/>} />
+          </Routes> */}
         </form>
         <button
           onClick={handleSignUp}

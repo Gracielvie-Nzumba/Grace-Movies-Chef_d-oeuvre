@@ -5,8 +5,8 @@ import axios from 'axios';
 function Films() {
     return (
         <div>
-
-        </div>
+            <h1>bonjour a tous!</h1>
+        </div> 
     )
 }
 

@@ -5,7 +5,7 @@ import axios from 'axios';
 function Serie() {
     return (
         <div>
-            <h1>fffffffffff</h1>
+            <h1></h1>
         </div>
     )
 }
