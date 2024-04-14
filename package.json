@@ -1,0 +1,23 @@
+<<<<<<< HEAD
+=======
+{
+  "name": "grace_movies",
+  "private": "true",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"yarn backend\" \"yarn frontend\" ",
+    "frontend": "cd frontend; yarn dev",
+    "backend": "cd backend; yarn start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+>>>>>>> trunk
